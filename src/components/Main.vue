@@ -1,6 +1,6 @@
 <template>
-    <section class="flex flex-col items-center justify-center h-screen dark">
-        <div class="bg-gray-800 rounded-lg shadow-md p-56 flex flex-row justify-between items-center space-x-24">
+    <section class="flex flex-col items-center justify-top m-20 h-screen dark">
+        <div class="bg-gray-800 rounded-lg shadow-md p-48 flex flex-row justify-between items-center space-x-24">
 
             <router-link to="/inputs">
                 <button
