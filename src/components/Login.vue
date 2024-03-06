@@ -22,20 +22,26 @@
                     class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
                     type="submit">Login</button>
             </form>
+            <Loading v-if="handleLoading" class="flex items-center justify-center" />
         </div>
     </section>
 
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { computed, ref } from "vue"
 import { useToast } from 'vue-toastification'
 import { useRouter } from 'vue-router'
+import Loading from '@/components/Loading.vue'
 
 const router = useRouter()
 const toast = useToast()
 const email = ref('')
 const password = ref('')
+const loading = ref(false)
+
+const handleLoading = computed(() => loading.value)
+
 const userLogin = async () => {
     try {
         const url = `https://aao4-latest.onrender.com/User/${email.value}/${password.value}`.toString()
@@ -43,6 +49,7 @@ const userLogin = async () => {
         if (!response.ok) {
             throw new Error('Response was not ok')
         }
+        loading.value = true
         const data = await response.json()
         if (data) {
             toast.success('Usuario logueado con éxito')
@@ -50,6 +57,7 @@ const userLogin = async () => {
             router.push('/main')
         } else {
             toast.error('Usuario o contraseña incorrectos')
+            loading.value = false
         }
 
     } catch (error) {
