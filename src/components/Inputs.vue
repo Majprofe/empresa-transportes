@@ -3,17 +3,17 @@
         <section class="w-full max-w-6xl bg-gray-800 rounded-lg shadow-md p-6">
             <h2 class="text-2xl font-bold text-gray-200 mb-4">Entradas</h2>
 
-            <form class="grid grid-cols-6">
-                <input type="number"
+            <form @submit.prevent="search" class="grid grid-cols-6">
+                <input v-model="vatNumber" type="number"
                     class="col-start-1 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full md:w-[48%] mr-[2%]"
                     placeholder="Matrícula" />
-                <input type="text"
+                <input v-model="client" type="text"
                     class="col-start-3 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full md:w-[48%] ml-[2%]"
                     placeholder="Cliente" />
-                <input type="number"
+                <input v-model="choffer" type="number"
                     class="col-start-1 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full md:w-[48%] mr-[2%]"
                     placeholder="Chofer" />
-                <input type="text"
+                <input v-model="travel" type="text"
                     class="col-start-3 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full md:w-[48%] ml-[2%]"
                     placeholder="Viaje" />
 
@@ -65,4 +65,20 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { getCity, getEntriesFiltered } from '@/api/userService.js'
+
+const vatNumber = ref()
+const choffer = ref()
+const client = ref('')
+const travel = ref('')
+
+const search = async () => {
+    try{
+        const data = await getEntriesFiltered(vatNumber.value, choffer.value, client.value, travel.value)
+        console.log(data)
+    } catch (error) {
+        console.error('Error', error)
+    }
+}
 </script>
