@@ -34,7 +34,6 @@ export const getEntriesFiltered = async (vatNumber, choffer, client, travel) => 
         "client": client,
         "travel": travel
     }
-    console.log(datas)
     try {
         const response = await fetch(url, {
             method: 'POST',
@@ -46,6 +45,21 @@ export const getEntriesFiltered = async (vatNumber, choffer, client, travel) => 
         })
         if (!response.ok) {
             throw new Error('Failed to fetch getEntriesFiltered')
+        }
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteEntry = async (id) => {
+    const url = `${API_BASE_URL}/Entry?id=${id}`
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE'
+        })
+        if (!response.ok) {
+            throw new Error('Failed to delete entry')
         }
         return await response.json()
     } catch (error) {

@@ -41,19 +41,19 @@
                 </thead>
                 <tbody class="bg-gray-800 divide-y divide-gray-700">
 
-                    <tr>
-                        <td class="px-4 py-2 text-gray-200">123456</td>
-                        <td class="px-4 py-2 text-gray-200">Juan Pérez</td>
-                        <td class="px-4 py-2 text-gray-200">Madrid - Sevilla</td>
-                        <td class="px-4 py-2 text-gray-200">100€</td>
-                        <td class="px-4 py-2 text-gray-200">10€</td>
-                        <td class="px-4 py-2 text-gray-200">110€</td>
-                        <td class="px-4 py-2 text-gray-200">110€</td>
+                    <tr v-for="data in datas" :key="data.id">
+                        <td class="px-4 py-2 text-gray-200">{{ data.vatNumber }}</td>
+                        <td class="px-4 py-2 text-gray-200">{{data.client}}</td>
+                        <td class="px-4 py-2 text-gray-200">{{data.travel}}</td>
+                        <td class="px-4 py-2 text-gray-200">{{data.import}}</td>
+                        <td class="px-4 py-2 text-gray-200">{{data.iva}}</td>
+                        <td class="px-4 py-2 text-gray-200">{{data.ivaTotal}}</td>
+                        <td class="px-4 py-2 text-gray-200">{{data.total}}</td>
                         <td class="px-4 py-2 flex flex-row">
                             <!-- Botones de acción: -->
-                            <img src="/view.svg" alt="Logo vista" class="mr-4">
-                            <img src="/pencil.svg" alt="Logo vista" class="mr-4">
-                            <img src="/recycle.svg" alt="Logo vista">
+                            <img @click="viewItem" src="/view.svg" alt="Logo vista" class="mr-4">
+                            <img @click="modifyItem" src="/pencil.svg" alt="Logo vista" class="mr-4">
+                            <img @click="deleteItem(data.id)" src="/recycle.svg" alt="Logo vista">
                         </td>
                     </tr>
                 </tbody>
@@ -66,17 +66,27 @@
 
 <script setup>
 import { ref } from 'vue'
-import { getCity, getEntriesFiltered } from '@/api/userService.js'
+import { getCity, getEntriesFiltered, deleteEntry } from '@/api/userService.js'
 
 const vatNumber = ref()
 const choffer = ref()
 const client = ref('')
 const travel = ref('')
+const datas = ref([])
 
 const search = async () => {
     try{
-        const data = await getEntriesFiltered(vatNumber.value, choffer.value, client.value, travel.value)
-        console.log(data)
+        datas.value = await getEntriesFiltered(vatNumber.value, choffer.value, client.value, travel.value)
+    } catch (error) {
+        console.error('Error', error)
+    }
+}
+
+const deleteItem = async (id) => {
+    try{
+        await deleteEntry(id)
+        datas.value = datas.value.filter(entry => entry.id !== id)
+
     } catch (error) {
         console.error('Error', error)
     }

@@ -6,13 +6,13 @@
     xml:space="preserve" 
     xmlns="http://www.w3.org/2000/svg" 
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    width="32px"
-    height="32px"
+    width="26"
+    height="26"
     fill="#FFFFFF">
     <style type="text/css">
-        .st0{fill:none;stroke:#FFFFFF;stroke-width:1.6724;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-        .st1{fill:none;stroke:#FFFFFF;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-        .st2{fill:none;stroke:#FFFFFF;stroke-width:1.5;stroke-linejoin:round;stroke-miterlimit:10;}
+        .st0{fill:none;stroke:#FFFFFF;stroke-width:1.307;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+        .st1{fill:none;stroke:#FFFFFF;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+        .st2{fill:none;stroke:#FFFFFF;stroke-width:1.25;stroke-linejoin:round;stroke-miterlimit:10;}
     </style>
     <g>
         <g>
