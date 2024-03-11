@@ -3,26 +3,26 @@
         <section class="w-full max-w-6xl bg-gray-800 rounded-lg shadow-md p-6">
             <h2 class="text-2xl font-bold text-gray-200 mb-4">Entradas</h2>
 
-            <form @submit.prevent="search" class="grid grid-cols-6">
-                <input v-model="vatNumber" type="number"
-                    class="col-start-1 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full md:w-[48%] mr-[2%]"
-                    placeholder="Matrícula" />
-                <input v-model="client" type="text"
-                    class="col-start-3 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full md:w-[48%] ml-[2%]"
-                    placeholder="Cliente" />
-                <input v-model="choffer" type="number"
-                    class="col-start-1 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full md:w-[48%] mr-[2%]"
-                    placeholder="Chofer" />
-                <input v-model="travel" type="text"
-                    class="col-start-3 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full md:w-[48%] ml-[2%]"
-                    placeholder="Viaje" />
+            <form @submit.prevent="search" class="grid grid-cols-6 gap-4">
+            <input v-model="vatNumber" type="number"
+                class="col-start-1 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
+                placeholder="Matrícula" />
+            <input v-model="client" type="text"
+                class="col-start-3 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
+                placeholder="Cliente" />
+            <input v-model="choffer" type="number"
+                class="col-start-1 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
+                placeholder="Chofer" />
+            <input v-model="travel" type="text"
+                class="col-start-3 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
+                placeholder="Viaje" />
 
 
-                <button type="submit"
-                    class="col-start-6 bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">
-                    Buscar
-                </button>
-            </form>
+            <button type="submit"
+                class="col-start-6 col-span-1 bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold p-2 px-4 rounded-md mb-2 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">
+                Buscar
+            </button>
+        </form>
         </section>
         <section class="w-full max-w-6xl bg-gray-800 rounded-lg shadow-md p-6 mt-2">
             <h2 class="text-2xl font-bold text-gray-200 mb-4">Resultados</h2>
