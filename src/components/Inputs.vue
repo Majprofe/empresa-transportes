@@ -43,15 +43,15 @@
 
                     <tr v-for="data in datas" :key="data.id">
                         <td class="px-4 py-2 text-gray-200">{{ data.vatNumber }}</td>
-                        <td class="px-4 py-2 text-gray-200">{{data.client}}</td>
-                        <td class="px-4 py-2 text-gray-200">{{data.travel}}</td>
-                        <td class="px-4 py-2 text-gray-200">{{data.import}}</td>
-                        <td class="px-4 py-2 text-gray-200">{{data.iva}}</td>
-                        <td class="px-4 py-2 text-gray-200">{{data.ivaTotal}}</td>
-                        <td class="px-4 py-2 text-gray-200">{{data.total}}</td>
+                        <td class="px-4 py-2 text-gray-200">{{ data.client }}</td>
+                        <td class="px-4 py-2 text-gray-200">{{ data.travel }}</td>
+                        <td class="px-4 py-2 text-gray-200">{{ data.import }}</td>
+                        <td class="px-4 py-2 text-gray-200">{{ data.iva }}</td>
+                        <td class="px-4 py-2 text-gray-200">{{ data.ivaTotal }}</td>
+                        <td class="px-4 py-2 text-gray-200">{{ data.total }}</td>
                         <td class="px-4 py-2 flex flex-row">
                             <!-- Botones de acción: -->
-                            <img @click="viewItem" src="/view.svg" alt="Logo vista" class="mr-4">
+                            <img @click="viewItem(data)" src="/view.svg" alt="Logo vista" class="mr-4">
                             <img @click="modifyItem" src="/pencil.svg" alt="Logo vista" class="mr-4">
                             <img @click="deleteItem(data.id)" src="/recycle.svg" alt="Logo vista">
                         </td>
@@ -59,7 +59,8 @@
                 </tbody>
             </table>
         </section>
-
+        <!-- Modal de detalles del ítem -->
+        <ModalItem :visible="show" :item="selectedItem" @close="show = false" />
     </section>
 
 </template>
@@ -67,15 +68,20 @@
 <script setup>
 import { ref } from 'vue'
 import { getCity, getEntriesFiltered, deleteEntry } from '@/api/userService.js'
+import { useToast } from 'vue-toastification'
+import ModalItem from '@/components/ModalItem.vue'
 
 const vatNumber = ref()
 const choffer = ref()
 const client = ref('')
 const travel = ref('')
 const datas = ref([])
+const toast = useToast()
+const show = ref(false)
+const selectedItem = ref(null)
 
 const search = async () => {
-    try{
+    try {
         datas.value = await getEntriesFiltered(vatNumber.value, choffer.value, client.value, travel.value)
     } catch (error) {
         console.error('Error', error)
@@ -83,12 +89,20 @@ const search = async () => {
 }
 
 const deleteItem = async (id) => {
-    try{
+    try {
         await deleteEntry(id)
         datas.value = datas.value.filter(entry => entry.id !== id)
+        toast.success('Entrada eliminada con éxito')
 
     } catch (error) {
         console.error('Error', error)
     }
 }
+
+const viewItem = (item) => {
+    selectedItem.value = item
+    show.value = true
+}
 </script>
+
+<style scoped></style>
