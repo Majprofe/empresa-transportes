@@ -52,7 +52,7 @@
                         <td class="px-4 py-2 flex flex-row">
                             <!-- Botones de acción: -->
                             <img @click="viewItem(data)" src="/view.svg" alt="Logo vista" class="mr-4">
-                            <img @click="modifyItem" src="/pencil.svg" alt="Logo vista" class="mr-4">
+                            <img @click="modifyItem(data)" src="/pencil.svg" alt="Logo vista" class="mr-4">
                             <img @click="deleteItem(data.id)" src="/recycle.svg" alt="Logo vista">
                         </td>
                     </tr>
@@ -60,24 +60,28 @@
             </table>
         </section>
         <!-- Modal de detalles del ítem -->
-        <ModalItem :visible="show" :item="selectedItem" @close="show = false" />
+        <ModalItem :visible="showView" :item="selectedItem" @close="showView = false" />
+        <ModifyItem :visible="showModify" :item="selectedItem" @close="showModify = false" />
+
     </section>
 
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { getCity, getEntriesFiltered, deleteEntry } from '@/api/userService.js'
 import { useToast } from 'vue-toastification'
 import ModalItem from '@/components/ModalItem.vue'
+import ModifyItem from '@/components/ModifyItem.vue'
 
-const vatNumber = ref()
-const choffer = ref()
-const client = ref('')
-const travel = ref('')
+const vatNumber = ref(null)
+const choffer = ref(null)
+const client = ref(null)
+const travel = ref(null)
 const datas = ref([])
 const toast = useToast()
-const show = ref(false)
+const showView = ref(false)
+const showModify = ref(false)
 const selectedItem = ref(null)
 
 const search = async () => {
@@ -96,13 +100,23 @@ const deleteItem = async (id) => {
 
     } catch (error) {
         console.error('Error', error)
+        toast.error('Error al eliminar la entrada')
     }
 }
 
 const viewItem = (item) => {
     selectedItem.value = item
-    show.value = true
+    showView.value = true
 }
+
+const modifyItem = (item) => {
+    selectedItem.value = item
+    showModify.value = true
+}
+
+/* watch(datas, (newValue) => {
+    search()
+}) */
 </script>
 
 <style scoped></style>
