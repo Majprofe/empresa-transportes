@@ -99,3 +99,29 @@ export const deleteEntry = async (id) => {
         console.log(error)
     }
 }
+
+export const getChoffer = async () => {
+    try {
+        const url = `${API_BASE_URL}/Choffer`
+        const response = await fetch(url)
+        if (!response.ok) {
+            throw new Error('Failed to fetch driver')
+        }
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getVatNumber = async () => {
+    try {
+        const url = `${API_BASE_URL}/VatNumber`
+        const response = await fetch(url)
+        if (!response.ok) {
+            throw new Error('Failed to fetch VatNumber')
+        }
+        return await response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
