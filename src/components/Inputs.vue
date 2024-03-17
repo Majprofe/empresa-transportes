@@ -24,15 +24,15 @@
                         {{ option.name }}
                     </option>
                 </select>
-                <div class="relative">
-        <input v-model="travel" @input="filterCities" @focus="showDropdown" @blur="hideDropdown" type="text"
-            class="col-start-3 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-            placeholder="Viaje" />
-        <ul v-if="showDropdown && filteredCities.length > 0 && !selectedCity"
-            class="absolute z-10 bg-white border border-gray-200 rounded-md mt-1 py-1 px-3 w-full max-h-32 overflow-y-auto">
-            <li v-for="city in filteredCities" :key="city.id" @click="selectCity(city)">{{ city.name }}</li>
-        </ul>
-    </div>
+                <div class="realative col-start-3 col-span-2 bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full">
+                    <input v-model="travel" @input="filterCities" @focus="showDropdownFunc" @blur="hideDropdown" type="text"
+                       class="bg-gray-700 text-gray-200 border-0 rounded-md focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full" 
+                        placeholder="Viaje" />
+                    <ul v-if="showDropdown && filteredCities.length > 0 && !selectedCity"
+                        class="absolute z-10 text-gray-800 bg-white border border-gray-200 rounded-md mt-1 py-1 px-3 max-w-64 max-h-32 overflow-y-auto">
+                        <li v-for="city in filteredCities" :key="city.id" @click="selectCity(city)">{{ city.name }}</li>
+                    </ul>
+                </div>
 
                 <button type="submit"
                     class="col-start-6 col-span-1 bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold p-2 px-4 rounded-md mb-2 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">
@@ -161,7 +161,7 @@ const getVatNumberName = (id) => {
 }
 
 const filteredCities = computed(() => {
-  return listCities.value.filter(city => city.name.toLowerCase().includes(travel.value ? travel.value.toLowerCase() : ''))
+    return listCities.value.filter(city => city.name.toLowerCase().includes(travel.value ? travel.value.toLowerCase() : ''))
 })
 
 const filterCities = () => {
@@ -175,7 +175,9 @@ const filterCities = () => {
 
 const selectCity = (city) => {
     // Actualiza el valor del input con la ciudad seleccionada
+    console.log("entrando")
     travel.value = city.name
+    console.log(travel.value)
     selectedCity.value = city
 }
 
@@ -203,21 +205,28 @@ const showDropdownFunc = () => {
 .relative {
     position: relative;
 }
+
 /* Estilo para la lista desplegable */
 ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 128px; /* Altura máxima de la lista desplegable */
-    width: calc(100% - 0.5rem); /* Ancho igual al del input */
+    max-height: 128px;
+    /* Altura máxima de la lista desplegable */
+    width: calc(100% - 0.5rem);
+    /* Ancho igual al del input */
 }
+
 /* Estilo para los elementos de la lista desplegable */
 ul li {
     padding: 0.5rem;
-    cursor: pointer; /* Cambia el cursor a flecha */
+    cursor: pointer;
+    /* Cambia el cursor a flecha */
 }
+
 /* Resaltar elemento sobre el que se encuentra el cursor */
 ul li:hover {
-    background-color: #f0f0f0; /* Cambia el fondo al pasar el ratón */
+    background-color: #f0f0f0;
+    /* Cambia el fondo al pasar el ratón */
 }
 </style>
